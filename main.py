@@ -1,8 +1,9 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 
-from dtos import UserCreate, UserUpdate, LinkCreate
-from functions import create_user, update_user, create_link, delete_link, get_links
+from dtos import UserCreate, UserUpdate, LinkCreate, DarajaCreate, DarajaUpdate
+from functions import create_user, update_user, create_link, delete_link, get_links, create_daraja, update_daraja, \
+    delete_daraja, get_all_daraja, get_daraja
 from models import SessionLocal
 
 app = FastAPI()
@@ -25,7 +26,7 @@ async def say_hello(name: str):
 @app.post("/create/user")
 async def user_create(user: UserCreate, db: Session = Depends(get_db)):
     response = await create_user(user, db)
-    return {"message": "user sucsesfully created",
+    return {"message": "user successfully created",
             "statusCode": 200,
             "data": response
             }
@@ -33,7 +34,7 @@ async def user_create(user: UserCreate, db: Session = Depends(get_db)):
 @app.put("/update/user")
 async def user_update(user: UserUpdate, db: Session = Depends(get_db)):
     response = await update_user(user, db)
-    return {"message": "user sucsesfully updated",
+    return {"message": "user successfully updated",
             "statusCode": 200,
             "data": response
             }
@@ -41,7 +42,7 @@ async def user_update(user: UserUpdate, db: Session = Depends(get_db)):
 @app.post("/create/link")
 async def link_create(link: LinkCreate, db: Session = Depends(get_db)):
     response = await create_link(link, db)
-    return {"message": "link sucsesfully created",
+    return {"message": "link successfully created",
             "statusCode": 200,
             "data": response
             }
@@ -49,7 +50,7 @@ async def link_create(link: LinkCreate, db: Session = Depends(get_db)):
 @app.delete("/delete/link")
 async def link_delete(link_id: int, db: Session = Depends(get_db)):
     response = await delete_link(link_id, db)
-    return {"message": "link sucsesfully deleted",
+    return {"message": "link successfully deleted",
             "statusCode": 200,
             "data": response
             }
@@ -61,3 +62,44 @@ async def get_link(db: Session = Depends(get_db)):
             "statusCode": 200,
             "data": response
             }
+
+@app.post("/create/daraja")
+async def daraja_create(user: DarajaCreate, db: Session = Depends(get_db)):
+    response = await create_daraja(user, db)
+    return {"message": "Daraja successfully created",
+            "statusCode": 200,
+            "data": response
+            }
+
+@app.put("/update/daraja")
+async def daraja_update(user: DarajaUpdate, db: Session = Depends(get_db)):
+    response = await update_daraja(user, db)
+    return {"message": "Daraja successfully updated",
+            "statusCode": 200,
+            "data": response
+            }
+
+@app.delete("/delete/daraja")
+async def daraja_delete(daraja_id: int, db: Session = Depends(get_db)):
+    response = await delete_daraja(daraja_id, db)
+    return {"message": "Daraja successfully deleted",
+            "statusCode": 200,
+            "data": response
+            }
+
+@app.get("/get/all/daraja")
+async def get_total_daraja(db: Session = Depends(get_db)):
+    response = await get_all_daraja(db)
+    return {"message": "Fetched all daraja",
+            "statusCode": 200,
+            "data": response
+            }
+
+@app.get("/get/daraja")
+async def take_daraja(daraja_id: int, db: Session = Depends(get_db)):
+    response = await get_daraja(daraja_id, db)
+    return {"message": "Fetched daraja successfully",
+            "statusCode": 200,
+            "data": response
+            }
+
