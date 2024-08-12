@@ -38,7 +38,11 @@ async def update_user(user: UserUpdate, db):
 
     db.commit()
     db.refresh(db_user)
-    return UserResult.parse_obj(user.dict())
+    return UserResult(
+        full_name=db_user.full_name,
+        total_count=db_user.total_count,
+        share_link=db_user.share_link
+    )
 
 
 async def create_link(link: LinkCreate, db):
@@ -87,7 +91,12 @@ async def create_daraja(daraja: DarajaCreate, db):
     db.add(new_daraja)
     db.commit()
     db.refresh(new_daraja)
-    return DarajaResult.parse_obj(daraja.dict())
+    return DarajaResult(
+        name=new_daraja.name,
+        daraja=new_daraja.daraja,
+        started_at=new_daraja.started_at,
+        limit=new_daraja.limit
+    )
 
 async def update_daraja(daraja: DarajaUpdate, db):
     db_daraja = db.query(Daraja).filter(Daraja.id == daraja.id).first()
