@@ -11,12 +11,18 @@ async def create_user(user: UserCreate, db):
 
     user1 = User(
         tg_id=user.tg_id,
-        full_name=user.full_name
+        full_name=user.full_name,
+        total_count=0,
+        share_link=""
     )
     db.add(user1)
     db.commit()
     db.refresh(user1)
-    return UserResult.parse_obj(user.dict())
+    return UserResult(
+        full_name=user1.full_name,
+        total_count=user1.total_count,
+        share_link=user1.share_link
+    )
 
 
 async def update_user(user: UserUpdate, db):
