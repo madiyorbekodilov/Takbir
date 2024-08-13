@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from models import *
 from dtos import *
 
+
 async def create_user(user: UserCreate, db):
     db_user = db.query(User).filter(User.tg_id == user.tg_id).first()
     if db_user is not None:
@@ -45,6 +46,28 @@ async def update_user(user: UserUpdate, db):
     )
 
 
+async def get_user_by_tg_id(tg_id: int, db):
+    db_user = db.query(User).filter(User.tg_id == tg_id).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return UserResult(
+        full_name=db_user.full_name,
+        total_count=db_user.total_count,
+        share_link=db_user.share_link
+    )
+
+
+async def get_user_by_id(user_id: int, db):
+    db_user = db.query(User).filter(User.id == id).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return UserResult(
+        full_name=db_user.full_name,
+        total_count=db_user.total_count,
+        share_link=db_user.share_link
+    )
+
+
 async def create_link(link: LinkCreate, db):
     link_one = Link(
         name=link.name,
@@ -55,6 +78,7 @@ async def create_link(link: LinkCreate, db):
     db.refresh(link_one)
     return True
 
+
 async def delete_link(link_id:int, db):
     link = db.query(Link).filter(Link.id == link_id).first()
     if link is None:
@@ -64,6 +88,7 @@ async def delete_link(link_id:int, db):
     db.commit()
     db.refresh(link)
     return True
+
 
 async def get_links(db):
     links = db.query(Link).all()
@@ -76,6 +101,7 @@ async def get_links(db):
         links2.append(link_link)
 
     return links2
+
 
 async def create_daraja(daraja: DarajaCreate, db):
     db_daraja = db.query(Daraja).filter(Daraja.daraja == daraja.daraja).first()
@@ -98,6 +124,7 @@ async def create_daraja(daraja: DarajaCreate, db):
         limit=new_daraja.limit
     )
 
+
 async def update_daraja(daraja: DarajaUpdate, db):
     db_daraja = db.query(Daraja).filter(Daraja.id == daraja.id).first()
     if db_daraja is None:
@@ -119,6 +146,7 @@ async def update_daraja(daraja: DarajaUpdate, db):
         limit=daraja.limit
     )
 
+
 async def delete_daraja(daraja_id:int, db):
     db_daraja = db.query(Daraja).filter(Daraja.id == daraja_id).first()
     if db_daraja is None:
@@ -128,6 +156,7 @@ async def delete_daraja(daraja_id:int, db):
     db.commit()
     db.refresh(db_daraja)
     return True
+
 
 async def get_all_daraja(db):
     db_daraja = db.query(Daraja).all()
@@ -142,6 +171,8 @@ async def get_all_daraja(db):
         daraja_all.append(da_raja)
 
     return daraja_all
+
+
 async def get_daraja(daraja_id: int,db):
     db_daraja = db.query(Daraja).filter(Daraja.id == daraja_id).first()
     if db_daraja is None:
