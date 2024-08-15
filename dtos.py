@@ -53,3 +53,8 @@ class DarajaResult(BaseModel):
 class FriendCreate(BaseModel):
     user_id: int
     friend_tg_id: int
+
+class FriendResult(BaseModel):
+    full_name: str
+    daraja: int
+    total_count: int
