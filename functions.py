@@ -1,6 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException
-from typing import Annotated
-from sqlalchemy.orm import Session
+from fastapi import HTTPException
 from models import *
 from dtos import *
 
@@ -58,7 +56,7 @@ async def get_user_by_tg_id(tg_id: int, db):
 
 
 async def get_user_by_id(user_id: int, db):
-    db_user = db.query(User).filter(User.id == id).first()
+    db_user = db.query(User).filter(User.id == user_id).first()
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return UserResult(
