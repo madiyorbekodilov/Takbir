@@ -79,7 +79,7 @@ async def create_link(link: LinkCreate, db):
     return True
 
 
-async def delete_link(link_id:int, db):
+async def delete_link(link_id: int, db):
     link = db.query(Link).filter(Link.id == link_id).first()
     if link is None:
         raise HTTPException(status_code=404, detail="Link not found")
@@ -147,7 +147,7 @@ async def update_daraja(daraja: DarajaUpdate, db):
     )
 
 
-async def delete_daraja(daraja_id:int, db):
+async def delete_daraja(daraja_id: int, db):
     db_daraja = db.query(Daraja).filter(Daraja.id == daraja_id).first()
     if db_daraja is None:
         raise HTTPException(status_code=404, detail="Daraja not found")
@@ -173,7 +173,7 @@ async def get_all_daraja(db):
     return daraja_all
 
 
-async def get_daraja(daraja_id: int,db):
+async def get_daraja(daraja_id: int, db):
     db_daraja = db.query(Daraja).filter(Daraja.id == daraja_id).first()
     if db_daraja is None:
         raise HTTPException(status_code=404, detail="Daraja not found")
@@ -184,3 +184,47 @@ async def get_daraja(daraja_id: int,db):
         limit=db_daraja.limit
     )
 
+
+async def create_friend(friend: FriendCreate, db):
+    new_friend = Friend(
+        user_id=friend.user_id,
+        friend_tg_id=friend.friend_tg_id
+    )
+    db.add(new_friend)
+    db.commit()
+    db.refresh(new_friend)
+    return True
+
+
+async def my_friend(my_tg_id: int, db):
+    db_user = db.query(User).filter(User.tg_id == my_tg_id).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    db_friend = db.query(Friend).filter(Friend.user_id == my_tg_id)
+    if db_friend is None:
+        raise HTTPException(status_code=404, detail="Friend not found")
+    data = list()
+    for friend in db_friend:
+        my_fr = db.query(User).filter(User.tg_id == friend.friend_tg_id).first()
+        if my_fr is not None:
+            daraja_my = await my_daraja(my_fr.total_count, db)
+            salom = FriendResult(
+                full_name=my_fr.full_name,
+                daraja=daraja_my,
+                total_count=my_fr.total_count
+            )
+            data.append(salom)
+
+    return data
+
+
+async def my_daraja(total_count: int, db):
+    db_daraja = db.query(Daraja).all()
+    user_daraja = 1
+    for daraja in db_daraja:
+        if daraja.started_at <= total_count:
+            user_daraja += daraja.daraja
+            break
+
+    return user_daraja
