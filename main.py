@@ -8,6 +8,7 @@ from models import SessionLocal
 
 app = FastAPI()
 
+
 def get_db():
     db = SessionLocal()
     try:
