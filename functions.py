@@ -3,16 +3,16 @@ from models import *
 from dtos import *
 
 
-async def create_user(user: UserCreate, db):
-    db_user = db.query(User).filter(User.tg_id == user.tg_id).first()
+async def create_user(full_name: str, tg_id: int, db):
+    db_user = db.query(User).filter(User.tg_id == tg_id).first()
     if db_user is not None:
         raise HTTPException(status_code=402, detail="User already exists")
 
     user1 = User(
-        tg_id=user.tg_id,
-        full_name=user.full_name,
+        tg_id=tg_id,
+        full_name=full_name,
         total_count=0,
-        share_link=""
+        share_link=f"https://t.me/istigfor_robot?start={tg_id}"
     )
     db.add(user1)
     db.commit()
@@ -183,10 +183,10 @@ async def get_daraja(daraja_id: int, db):
     )
 
 
-async def create_friend(friend: FriendCreate, db):
+async def create_friend(user_id: int, friend_tg_id: int, db):
     new_friend = Friend(
-        user_id=friend.user_id,
-        friend_tg_id=friend.friend_tg_id
+        user_id=user_id,
+        friend_tg_id=friend_tg_id
     )
     db.add(new_friend)
     db.commit()

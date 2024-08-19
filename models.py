@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime, Boolean
+from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -8,6 +8,7 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
+
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -16,17 +17,20 @@ class User(Base):
     total_count = Column(Integer)
     share_link = Column(String)
 
+
 class Link(Base):
     __tablename__ = "links"
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
     url = Column(String)
 
+
 class Friend(Base):
     __tablename__ = "friends"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
+    user_id = Column(Integer)
     friend_tg_id = Column(Integer)
+
 
 class Daraja(Base):
     __tablename__ = "daraja"
@@ -35,4 +39,3 @@ class Daraja(Base):
     daraja = Column(Integer)
     started_at = Column(Integer)
     limit = Column(Integer)
-
