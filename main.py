@@ -22,6 +22,11 @@ async def root():
     return {"message": "Hello World"}
 
 
+@app.get("/sinov")
+async def root():
+    return {"message": "Assalomu alekum Madiyorbek"}
+
+
 @app.post("/create/user")
 async def user_create(full_name: str, tg_id: int, db: Session = Depends(get_db)):
     response = await create_user(full_name, tg_id, db)
