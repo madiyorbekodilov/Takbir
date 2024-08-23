@@ -25,7 +25,7 @@ async def create_user(full_name: str, tg_id: int, db):
 
 
 async def update_user(user: UserUpdate, db):
-    db_user = db.query(User).filter(User.id == user.id).first()
+    db_user = db.query(User).filter(User.tg_id == user.id).first()
 
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
