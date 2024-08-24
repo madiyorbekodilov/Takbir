@@ -1,12 +1,24 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-
+from fastapi.middleware.cors import CORSMiddleware
 from dtos import UserUpdate, LinkCreate, DarajaCreate, DarajaUpdate
 from functions import create_user, update_user, create_link, delete_link, get_links, create_daraja, update_daraja, \
     delete_daraja, get_all_daraja, get_daraja, get_user_by_tg_id, get_user_by_id, create_friend, my_friend
 from models import SessionLocal
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:5173",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 
 def get_db():
