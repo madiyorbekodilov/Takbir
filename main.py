@@ -9,7 +9,9 @@ from models import SessionLocal
 app = FastAPI()
 
 origins = [
-    "https://coispace.uz/",
+    "http://localhost:5173",
+    "https://e456-2a05-45c2-6079-6100-81a1-8e3f-507-780c.ngrok-free.app"
+
 ]
 
 app.add_middleware(
