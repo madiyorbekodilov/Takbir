@@ -10,6 +10,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
+    "https://coispace.uz/",
 ]
 
 app.add_middleware(
