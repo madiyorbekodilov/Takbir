@@ -10,7 +10,6 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-    "https://0a68-92-63-204-87.ngrok-free.app",
     "https://alehson.uz/",
     "https://takbir-web-app.vercel.app/"
 ]
