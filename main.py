@@ -37,9 +37,9 @@ async def root():
     return {"message": "Hello World"}
 
 
-@app.get("/sinov")
+@app.get("/for/test")
 async def root():
-    return {"message": "Assalomu alekum Madiyorbek"}
+    return {"message": "Good morning!"}
 
 
 @app.post("/create/user")
