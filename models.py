@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy import create_engine, Column, Integer, String, BIGINT
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -13,7 +13,7 @@ class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, autoincrement=True)
     full_name = Column(String)
-    tg_id = Column(Integer)
+    tg_id = Column(BIGINT)
     total_count = Column(Integer)
     share_link = Column(String)
 
@@ -28,8 +28,8 @@ class Link(Base):
 class Friend(Base):
     __tablename__ = "friends"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer)
-    friend_tg_id = Column(Integer)
+    user_id = Column(BIGINT)
+    friend_tg_id = Column(BIGINT)
 
 
 class Daraja(Base):
