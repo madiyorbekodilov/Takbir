@@ -9,10 +9,7 @@ from models import SessionLocal
 app = FastAPI()
 
 origins = [
-    "https://9357-2a05-45c2-704a-7700-bdf8-c255-d66b-523c.ngrok-free.app",
-    "http://localhost:5173",
-    "https://alehson.uz/",
-    "https://takbir-web-app.vercel.app/"
+    "https://takbir-web-app.vercel.app/",
 ]
 
 app.add_middleware(
