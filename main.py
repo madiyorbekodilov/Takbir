@@ -9,7 +9,7 @@ from models import SessionLocal
 app = FastAPI()
 
 origins = [
-    "https://takbir-web-app.vercel.app/",
+    "https://coispace.uz/",
 ]
 
 app.add_middleware(
