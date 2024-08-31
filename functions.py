@@ -88,16 +88,22 @@ async def create_link(link: LinkCreate, db):
     return True
 
 
-async def delete_link(db):
-    link = db.query(Link).all()
-    # if link is None:
-    #     raise HTTPException(status_code=404, detail="Link not found")
+async def delete_link(link_id: int, db):
+    link = db.query(Link).filter(Link.id == link_id).first()
+    if link is None:
+        raise HTTPException(status_code=404, detail="Link not found")
 
-    for i in link:
-        db.delete(i)
-
+    db.delete(link)
     db.commit()
     db.refresh(link)
+    return True
+
+
+async def delete_all_links(db):
+    links = db.query(Link).all()
+    for link in links:
+        await delete_link(link.id, db)
+
     return True
 
 
