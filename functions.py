@@ -105,7 +105,8 @@ async def get_links(db):
     for link in links:
         link_link = LinkResult(
             name=link.name,
-            url=link.url
+            url=link.url,
+            chat_id=link.chat_id
         )
         links2.append(link_link)
 
