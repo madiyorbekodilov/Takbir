@@ -22,11 +22,13 @@ class UserResult(BaseModel):
 class LinkCreate(BaseModel):
     name: str
     url: str
+    chat_id: int
 
 
 class LinkResult(BaseModel):
     name: str
     url: str
+    chat_id: int
 
 
 class DarajaCreate(BaseModel):

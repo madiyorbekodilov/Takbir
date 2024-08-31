@@ -23,6 +23,7 @@ class Link(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
     url = Column(String)
+    chat_id = Column(BIGINT)
 
 
 class Friend(Base):
