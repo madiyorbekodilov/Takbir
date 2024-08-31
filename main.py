@@ -94,8 +94,8 @@ async def link_create(link: LinkCreate, db: Session = Depends(get_db)):
 
 
 @app.delete("/delete/link")
-async def link_delete(link_id: int, db: Session = Depends(get_db)):
-    response = await delete_link(link_id, db)
+async def link_delete(db: Session = Depends(get_db)):
+    response = await delete_link(db)
     return {"message": "link successfully deleted",
             "statusCode": 200,
             "data": response
