@@ -109,7 +109,7 @@ async def delete_all_links(db):
 
 async def get_links(db):
     links = db.query(Link).all()
-    links2 = list()
+    links2 = []
     for link in links:
         link_link = LinkResult(
             name=link.name,
