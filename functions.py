@@ -44,6 +44,17 @@ async def update_user(user: UserUpdate, db):
     )
 
 
+async def delete_user(tg_id: int, db):
+    db_user = db.query(User).filter(User.tg_id == tg_id).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    db.delete(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return True
+
+
 async def get_user_by_tg_id(tg_id: int, db):
     db_user = db.query(User).filter(User.tg_id == tg_id).first()
     if db_user is None:
