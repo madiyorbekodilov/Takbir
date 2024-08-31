@@ -80,7 +80,8 @@ async def get_user_by_id(user_id: int, db):
 async def create_link(link: LinkCreate, db):
     link_one = Link(
         name=link.name,
-        url=link.url
+        url=link.url,
+        chat_id=link.chat_id
     )
     db.add(link_one)
     db.commit()
