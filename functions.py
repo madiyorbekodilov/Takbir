@@ -95,14 +95,14 @@ async def delete_link(link_id: int, db):
 
     db.delete(link)
     db.commit()
-    db.refresh(link)
     return True
 
 
 async def delete_all_links(db):
     links = db.query(Link).all()
     for link in links:
-        await delete_link(link.id, db)
+        db.delete(link)
+        db.commit()
 
     return True
 
