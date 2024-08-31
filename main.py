@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 from dtos import UserUpdate, LinkCreate, DarajaCreate, DarajaUpdate
 from functions import create_user, update_user, create_link, delete_link, get_links, create_daraja, update_daraja, \
-    delete_daraja, get_all_daraja, get_daraja, get_user_by_tg_id, get_user_by_id, create_friend, my_friend
+    delete_daraja, get_all_daraja, get_daraja, get_user_by_tg_id, get_user_by_id, create_friend, my_friend, delete_user
 from models import SessionLocal
 
 app = FastAPI()
@@ -52,6 +52,15 @@ async def user_create(full_name: str, tg_id: int, db: Session = Depends(get_db))
 async def user_update(user: UserUpdate, db: Session = Depends(get_db)):
     response = await update_user(user, db)
     return {"message": "user successfully updated",
+            "statusCode": 200,
+            "data": response
+            }
+
+
+@app.delete("/delete/user")
+async def user_delete(tg_id: int, db: Session = Depends(get_db)):
+    response = await delete_user(tg_id, db)
+    return {"message": "user successfully deleted",
             "statusCode": 200,
             "data": response
             }
