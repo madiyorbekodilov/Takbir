@@ -11,11 +11,13 @@ class UserUpdate(BaseModel):
     id: int
     full_name: Optional[str]
     total_count: Optional[int]
+    total_coin: Optional[int]
 
 
 class UserResult(BaseModel):
     full_name: str
     total_count: int
+    total_coin: int
     share_link: str
 
 

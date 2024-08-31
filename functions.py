@@ -12,6 +12,7 @@ async def create_user(full_name: str, tg_id: int, db):
         tg_id=tg_id,
         full_name=full_name,
         total_count=0,
+        total_coin=0,
         share_link=f"https://t.me/istigfor_robot?start={tg_id}"
     )
     db.add(user1)
@@ -34,12 +35,15 @@ async def update_user(user: UserUpdate, db):
         db_user.full_name = user.full_name
     if user.total_count is not None:
         db_user.total_count = user.total_count
+    if user.total_coin is not None:
+        db_user.total_coin = user.total_coin
 
     db.commit()
     db.refresh(db_user)
     return UserResult(
         full_name=db_user.full_name,
         total_count=db_user.total_count,
+        total_coin=db_user.total_coin,
         share_link=db_user.share_link
     )
 

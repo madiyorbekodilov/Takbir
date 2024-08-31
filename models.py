@@ -15,6 +15,7 @@ class User(Base):
     full_name = Column(String)
     tg_id = Column(BIGINT)
     total_count = Column(Integer)
+    total_coin = Column(Integer)
     share_link = Column(String)
 
 
