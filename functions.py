@@ -66,6 +66,7 @@ async def get_user_by_tg_id(tg_id: int, db):
     return UserResult(
         full_name=db_user.full_name,
         total_count=db_user.total_count,
+        total_coin=db_user.total_coin,
         share_link=db_user.share_link
     )
 
