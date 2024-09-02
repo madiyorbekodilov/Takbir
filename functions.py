@@ -13,6 +13,7 @@ async def create_user(full_name: str, tg_id: int, db):
         full_name=full_name,
         total_count=0,
         total_coin=0,
+        channels="",
         share_link=f"https://t.me/istigfor_robot?start={tg_id}"
     )
     db.add(user1)
@@ -22,6 +23,7 @@ async def create_user(full_name: str, tg_id: int, db):
         full_name=user1.full_name,
         total_count=user1.total_count,
         total_coin=user1.total_coin,
+        channels=user1.channels,
         share_link=user1.share_link
     )
 
@@ -38,6 +40,8 @@ async def update_user(user: UserUpdate, db):
         db_user.total_count = user.total_count
     if user.total_coin is not None:
         db_user.total_coin = user.total_coin
+    if user.channels is not None:
+        db_user.channels = user.channels
 
     db.commit()
     db.refresh(db_user)
@@ -68,6 +72,7 @@ async def get_user_by_tg_id(tg_id: int, db):
         full_name=db_user.full_name,
         total_count=db_user.total_count,
         total_coin=db_user.total_coin,
+        channels=db_user.channels,
         share_link=db_user.share_link
     )
 
@@ -91,6 +96,7 @@ async def get_top_users(db):
             full_name=user.full_name,
             total_count=user.total_count,
             total_coin=user.total_coin,
+            channels=user.channels,
             share_link=user.share_link
         )
         top_user.append(user1)
