@@ -21,6 +21,7 @@ async def create_user(full_name: str, tg_id: int, db):
     return UserResult(
         full_name=user1.full_name,
         total_count=user1.total_count,
+        total_coin=user1.total_coin,
         share_link=user1.share_link
     )
 
