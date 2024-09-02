@@ -102,6 +102,7 @@ async def all_user_delete(db: Session = Depends(get_db)):
             "data": response
             }
 
+
 @app.post("/create/link")
 async def link_create(link: LinkCreate, db: Session = Depends(get_db)):
     response = await create_link(link, db)
