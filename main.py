@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dtos import UserUpdate, LinkCreate, DarajaCreate, DarajaUpdate
 from functions import create_user, update_user, create_link, delete_link, get_links, create_daraja, update_daraja, \
     delete_daraja, get_all_daraja, get_daraja, get_user_by_tg_id, get_user_by_id, create_friend, my_friend, delete_user, \
-    delete_all_links
+    delete_all_links, get_top_users, delete_all_users
 from models import SessionLocal
 
 app = FastAPI()
@@ -84,6 +84,23 @@ async def get_tg_id(tg_id: int, db: Session = Depends(get_db)):
             "data": response
             }
 
+
+@app.get("/get/top/user")
+async def top_users(db: Session = Depends(get_db)):
+    response = await get_top_users(db)
+    return {"message": "user successfully fetched",
+            "statusCode": 200,
+            "data": response
+            }
+
+
+@app.delete("delete/all/users")
+async def all_user_delete(db):
+    response = await delete_all_users(db)
+    return {"message": "all user successfully deleted",
+            "statusCode": 200,
+            "data": response
+            }
 
 @app.post("/create/link")
 async def link_create(link: LinkCreate, db: Session = Depends(get_db)):
