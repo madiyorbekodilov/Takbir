@@ -94,7 +94,7 @@ async def top_users(db: Session = Depends(get_db)):
             }
 
 
-@app.delete("delete/all/users")
+@app.delete("/delete/all/users")
 async def all_user_delete(db: Session = Depends(get_db)):
     response = await delete_all_users(db)
     return {"message": "all user successfully deleted",
