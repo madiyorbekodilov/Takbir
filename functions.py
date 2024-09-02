@@ -82,6 +82,30 @@ async def get_user_by_id(user_id: int, db):
     )
 
 
+async def get_top_users(db):
+    top_users = db.query(User).order_by(User.id.desc()).all()
+    top_user = []
+    for user in top_users:
+        user1 = UserResult(
+            full_name=user.full_name,
+            total_count=user.total_count,
+            total_coin=user.total_coin,
+            share_link=user.share_link
+        )
+        top_user.append(user1)
+
+    return top_user
+
+
+async def delete_all_users(db):
+    all_users = db.query(User).all()
+    for user in all_users:
+        db.delete(user)
+        db.commit()
+
+    return True
+
+
 async def create_link(link: LinkCreate, db):
     link_one = Link(
         name=link.name,
