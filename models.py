@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, BIGINT
+from sqlalchemy import create_engine, Column, Integer, String, BIGINT, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -16,6 +16,7 @@ class User(Base):
     tg_id = Column(BIGINT)
     total_count = Column(Integer)
     total_coin = Column(Integer)
+    channels = Column(Text)
     share_link = Column(String)
 
 
