@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dtos import UserUpdate, LinkCreate, DarajaCreate, DarajaUpdate
 from functions import create_user, update_user, create_link, delete_link, get_links, create_daraja, update_daraja, \
     delete_daraja, get_all_daraja, get_daraja, get_user_by_tg_id, get_user_by_id, create_friend, my_friend, delete_user, \
-    delete_all_links, get_top_users, delete_all_users, delete_friend
+    delete_all_links, get_top_users, delete_all_users, delete_friend, my_daraja
 from models import SessionLocal
 
 app = FastAPI()
@@ -179,6 +179,15 @@ async def get_total_daraja(db: Session = Depends(get_db)):
 async def take_daraja(daraja_id: int, db: Session = Depends(get_db)):
     response = await get_daraja(daraja_id, db)
     return {"message": "Fetched daraja successfully",
+            "statusCode": 200,
+            "data": response
+            }
+
+
+@app.get("/get/my/daraja")
+async def get_my_daraja(total_count: int, db: Session = Depends(get_db)):
+    response = await my_daraja(total_count, db)
+    return {"message": "your daraja successfully fetched",
             "statusCode": 200,
             "data": response
             }
