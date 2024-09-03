@@ -294,7 +294,7 @@ async def delete_friend(db):
 
 async def my_daraja(total_count: int, db):
     db_daraja = db.query(Daraja).all()
-    user_daraja = 1
+    user_daraja = 0
     for daraja in db_daraja:
         if daraja.started_at <= total_count:
             user_daraja += 1
