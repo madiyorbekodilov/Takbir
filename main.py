@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dtos import UserUpdate, LinkCreate, DarajaCreate, DarajaUpdate
 from functions import create_user, update_user, create_link, delete_link, get_links, create_daraja, update_daraja, \
     delete_daraja, get_all_daraja, get_daraja, get_user_by_tg_id, get_user_by_id, create_friend, my_friend, delete_user, \
-    delete_all_links, get_top_users, delete_all_users
+    delete_all_links, get_top_users, delete_all_users, delete_friend
 from models import SessionLocal
 
 app = FastAPI()
@@ -197,6 +197,15 @@ async def friend_create(user_id: int, friend_tg_id: int, db: Session = Depends(g
 async def all_friends(my_tg_id: int, db: Session = Depends(get_db)):
     response = await my_friend(my_tg_id, db)
     return {"message": "Fetched friends successfully",
+            "statusCode": 200,
+            "data": response
+            }
+
+
+@app.delete("/delete/all/friends")
+async def delete_all_friend(db: Session = Depends(get_db)):
+    response = await delete_friend(db)
+    return {"message": "all friends successfully deleted",
             "statusCode": 200,
             "data": response
             }

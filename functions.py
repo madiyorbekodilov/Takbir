@@ -275,6 +275,15 @@ async def my_friend(my_tg_id: int, db):
     return data
 
 
+async def delete_friend(db):
+    friends = db.query(Friend).all()
+    for friend in friends:
+        db.delete(friend)
+        db.commit()
+
+    return True
+
+
 async def my_daraja(total_count: int, db):
     db_daraja = db.query(Daraja).all()
     user_daraja = 1
