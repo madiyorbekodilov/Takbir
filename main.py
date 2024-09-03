@@ -202,7 +202,7 @@ async def all_friends(my_tg_id: int, db: Session = Depends(get_db)):
             }
 
 
-@app.delete("/delete/all/friends")
+@app.delete("/delete-all/friends")
 async def delete_all_friend(db: Session = Depends(get_db)):
     response = await delete_friend(db)
     return {"message": "all friends successfully deleted",
