@@ -298,6 +298,7 @@ async def my_daraja(total_count: int, start: int, db):
     for daraja in db_daraja:
         if daraja.started_at <= total_count:
             user_daraja += 1
+        else:
             break
 
     return user_daraja
