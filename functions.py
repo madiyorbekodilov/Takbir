@@ -49,6 +49,7 @@ async def update_user(user: UserUpdate, db):
         full_name=db_user.full_name,
         total_count=db_user.total_count,
         total_coin=db_user.total_coin,
+        channels=db_user.channels,
         share_link=db_user.share_link
     )
 
