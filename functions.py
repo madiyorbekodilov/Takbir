@@ -242,6 +242,14 @@ async def get_daraja(daraja_id: int, db):
 
 
 async def create_friend(user_id: int, friend_tg_id: int, db):
+    user = db.query(User).filter(User.tg_id == friend_tg_id).first()
+    if user is None:
+        raise HTTPException(status_code=404, detail="Friend not found")
+
+    db_friend = db.query(Friend).filter(Friend.friend_tg_id == friend_tg_id).first()
+    if db_friend is not None:
+        raise HTTPException(status_code=403, detail="Friend already exists")
+
     new_friend = Friend(
         user_id=user_id,
         friend_tg_id=friend_tg_id
