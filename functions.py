@@ -272,7 +272,7 @@ async def my_friend(my_tg_id: int, db):
     for friend in db_friend:
         my_fr = db.query(User).filter(User.tg_id == friend.friend_tg_id).first()
         if my_fr is not None:
-            daraja_my = await my_daraja(my_fr.total_count, db)
+            daraja_my = await my_daraja(my_fr.total_count, 1, db)
             salom = FriendResult(
                 full_name=my_fr.full_name,
                 daraja=daraja_my,
@@ -292,9 +292,9 @@ async def delete_friend(db):
     return True
 
 
-async def my_daraja(total_count: int, db):
+async def my_daraja(total_count: int, start: int, db):
     db_daraja = db.query(Daraja).all()
-    user_daraja = 1
+    user_daraja = start
     for daraja in db_daraja:
         if daraja.started_at <= total_count:
             user_daraja += 1
