@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, Column, Integer, String, BIGINT, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = "postgresql://takbir_owner:hBNHsClP34TZ@ep-billowing-resonance-a10xp96h.ap-southeast-1.aws.neon.tech/takbir?sslmode=require"
+SQLALCHEMY_DATABASE_URL = ""
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
